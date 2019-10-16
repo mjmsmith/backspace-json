@@ -6,13 +6,6 @@ class BackspaceJSONTests: XCTestCase {
     return utf8String.data(using: .utf8) ?? Data()
   }
 
-
-  override func setUp() {
-  }
-
-  override func tearDown() {
-  }
-
   func testString() {
     try XCTAssertEqual(JSON(data: data("\"123\"")).string, "123")
 
@@ -40,24 +33,6 @@ class BackspaceJSONTests: XCTestCase {
     try XCTAssertNil(JSON(data: data("\"abc\"")).bool)
   }
 
-  func testExistsNull() {
-    try XCTAssertTrue(JSON(data: data("null")).existsNull)
-    try XCTAssertTrue(JSON(data: data("{\"a\": null}"))["a"].existsNull)
-
-    try XCTAssertFalse(JSON(data: data("123")).existsNull)
-    try XCTAssertFalse(JSON(data: data("{\"a\": 0}"))["a"].existsNull)
-    try XCTAssertFalse(JSON(data: data("{\"b\": null}"))["a"].existsNull)
-  }
-
-  func testExistsNotNull() {
-    try XCTAssertTrue(JSON(data: data("123")).existsNotNull)
-    try XCTAssertTrue(JSON(data: data("{\"a\": 0}"))["a"].existsNotNull)
-
-    try XCTAssertFalse(JSON(data: data("null")).existsNotNull)
-    try XCTAssertFalse(JSON(data: data("{\"a\": null}"))["a"].existsNotNull)
-    try XCTAssertFalse(JSON(data: data("{\"b\": null}"))["a"].existsNotNull)
-  }
-
   func testArray() {
     let array = data("""
                      [123, "123"]
@@ -83,8 +58,6 @@ class BackspaceJSONTests: XCTestCase {
       """
     )
 
-    try! print(JSON(data: dict))
-
     try XCTAssertEqual(JSON(data: dict)["a"].number, 123)
     try XCTAssertEqual(JSON(data: dict)["b"].string, "123")
     try XCTAssertEqual(JSON(data: dict)["c"]["d"].number, 789)
@@ -97,5 +70,23 @@ class BackspaceJSONTests: XCTestCase {
     try XCTAssertFalse(JSON(data: dict)["d"].exists)
     try XCTAssertFalse(JSON(data: dict)["c"]["f"][4].exists)
     try XCTAssertFalse(JSON(data: dict)["c"]["g"].exists)
+  }
+
+  func testExistsNull() {
+    try XCTAssertTrue(JSON(data: data("null")).existsNull)
+    try XCTAssertTrue(JSON(data: data("{\"a\": null}"))["a"].existsNull)
+
+    try XCTAssertFalse(JSON(data: data("123")).existsNull)
+    try XCTAssertFalse(JSON(data: data("{\"a\": 0}"))["a"].existsNull)
+    try XCTAssertFalse(JSON(data: data("{\"b\": null}"))["a"].existsNull)
+  }
+
+  func testExistsNotNull() {
+    try XCTAssertTrue(JSON(data: data("123")).existsNotNull)
+    try XCTAssertTrue(JSON(data: data("{\"a\": 0}"))["a"].existsNotNull)
+
+    try XCTAssertFalse(JSON(data: data("null")).existsNotNull)
+    try XCTAssertFalse(JSON(data: data("{\"a\": null}"))["a"].existsNotNull)
+    try XCTAssertFalse(JSON(data: data("{\"b\": null}"))["a"].existsNotNull)
   }
 }

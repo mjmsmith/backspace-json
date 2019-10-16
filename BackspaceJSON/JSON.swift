@@ -9,7 +9,7 @@ public enum JSON {
   case null
   case none
 
-  fileprivate static let boolNumberType = type(of: NSNumber(value: true))
+  private static let boolNumberType = type(of: NSNumber(value: true))
 
   public init(data: Data, options: JSONSerialization.ReadingOptions = .allowFragments) throws {
     self = try JSON(JSONSerialization.jsonObject(with: data, options: options))
@@ -64,11 +64,11 @@ public enum JSON {
   }
 
   public var double: Double? {
-    return number?.doubleValue
+    return self.number?.doubleValue
   }
 
   public var int: Int? {
-    return number?.intValue
+    return self.number?.intValue
   }
 
   public var bool: Bool? {
@@ -107,7 +107,7 @@ public enum JSON {
     return (try? JSONSerialization.data(withJSONObject: object, options: options)) ?? Data()
   }
 
-  fileprivate init(_ object: Any) {
+  private init(_ object: Any) {
     switch object {
       case let dictionary as [String: Any]:
         self = .dictionary(dictionary.mapValues() { JSON($0) })
@@ -126,13 +126,12 @@ public enum JSON {
     }
   }
 
-  fileprivate var object: Any? {
+  private var object: Any? {
     switch self {
       case .dictionary(let value): return value.mapValues() { $0.object }
       case .array(let value): return value.map() { $0.object }
       case .string(let value): return value
       case .number(let value): return value
-
       case .bool(let value): return value
       case .null: return NSNull()
       case .none: return nil
