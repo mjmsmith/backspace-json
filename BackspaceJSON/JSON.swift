@@ -16,7 +16,7 @@ public enum JSON {
   }
 
   public subscript(index: Int) -> JSON {
-    guard case .array(let array) = self, index >= 0, index < array.count else {
+    guard case let .array(array) = self, index >= 0, index < array.count else {
       return .none
     }
 
@@ -24,7 +24,7 @@ public enum JSON {
   }
 
   public subscript(key: String) -> JSON {
-    guard case .dictionary(let dict) = self, let value = dict[key] else {
+    guard case let .dictionary(dict) = self, let value = dict[key] else {
       return .none
     }
 
@@ -97,14 +97,6 @@ public enum JSON {
 
   public var existsNotNull: Bool {
     return self.exists && !self.existsNull
-  }
-
-  public func data(options: JSONSerialization.WritingOptions = []) -> Data {
-    guard let object = self.object else {
-      return Data()
-    }
-
-    return (try? JSONSerialization.data(withJSONObject: object, options: options)) ?? Data()
   }
 
   private init(_ object: Any) {
