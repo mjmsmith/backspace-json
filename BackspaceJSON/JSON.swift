@@ -102,9 +102,9 @@ public enum JSON {
   private init(_ object: Any) {
     switch object {
       case let dictionary as [String: Any]:
-        self = .dictionary(dictionary.mapValues() { JSON($0) })
+        self = .dictionary(dictionary.mapValues({ JSON($0) }))
       case let array as [Any]:
-        self = .array(array.map() { JSON($0) })
+        self = .array(array.map({ JSON($0) }))
       case let string as String:
         self = .string(string)
       case let number as NSNumber:
@@ -116,27 +116,5 @@ public enum JSON {
       default:
         self = .none
     }
-  }
-
-  private var object: Any? {
-    switch self {
-      case .dictionary(let value): return value.mapValues() { $0.object }
-      case .array(let value): return value.map() { $0.object }
-      case .string(let value): return value
-      case .number(let value): return value
-      case .bool(let value): return value
-      case .null: return NSNull()
-      case .none: return nil
-    }
-  }
-}
-
-extension JSON: CustomDebugStringConvertible {
-  public var debugDescription: String {
-    guard let object = self.object else {
-      return ""
-    }
-
-    return String(describing: object as AnyObject).replacingOccurrences(of: ";\n", with: "\n")
   }
 }
