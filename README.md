@@ -1,8 +1,8 @@
 # BackspaceJSON
 
-Codable has made consuming JSON much easier, but there are still cases where it's not suitable, such as a configuration file with arbitrary keys and values. In those cases, you just want type-safe access to values without a lot of fuss.
+Codable has made consuming JSON on iOS much easier, but there are still cases where it's not suitable, such as a configuration file with arbitrary keys and values. In those cases, you just want type-safe access to values without a lot of fuss.
 
-BackspaceJSON is a tiny (~100 lines) solution.
+BackspaceJSON is a tiny (single enum, ~100 lines) framework written in Swift.
 
 ### Initialization
 
