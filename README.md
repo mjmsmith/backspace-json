@@ -92,7 +92,7 @@ Install via CocoaPods:
 pod "BackspaceJSON"
 ```
 
-Alternatively, just copy the single file `BackspaceJSON.swift` into your project.
+Alternatively, just copy the single file `BackspaceJSON/JSON.swift` into your project.
 
 ### License
 
