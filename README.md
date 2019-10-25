@@ -41,7 +41,7 @@ var int: Int?
 var bool: Bool?
 ```
 
-Extract the value from a JSON object using the optional properties.
+Extract the value from a JSON object using optional properties.
 
 ```
 json["key"][0].string
@@ -65,7 +65,7 @@ json["one"]["two"].existsNotNull // If true, a non-null value exists at this pat
 
 ### Example
 
-This code fetches the current version of an app from from the App Store.
+This code fetches the current version of an app from the App Store.
 
 ```
 let url = URL(string: "http://itunes.apple.com/lookup?id=<YOUR_APP_ID>")!
