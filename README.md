@@ -68,20 +68,19 @@ json["one"]["two"].existsNotNull // If true, a non-null value exists at this pat
 This code fetches the current version of an app from from the App Store.
 
 ```
-    let url = URL(string: "http://itunes.apple.com/lookup?id=<YOUR_APP_ID>")!
-    let task = URLSession.shared.dataTask(with: url) { data, response, error in
-      guard let data = data,
-            let json = try? JSON(data: data),
-            let currentVersion = json["results"][0]["version"].string else {
-            print("Lookup failed.")
-        return
-      }
-
-      print("Current version is \(currentVersion).")
-    }
-
-    task.resume()
+let url = URL(string: "http://itunes.apple.com/lookup?id=<YOUR_APP_ID>")!
+let task = URLSession.shared.dataTask(with: url) { data, response, error in
+  guard let data = data,
+        let json = try? JSON(data: data),
+        let currentVersion = json["results"][0]["version"].string else {
+    print("Lookup failed.")
+    return
   }
+
+  print("Current version is \(currentVersion).")
+}
+
+task.resume()
 ```
 
 ### Installation
