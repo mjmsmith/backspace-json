@@ -13,7 +13,7 @@ init(data: Data, options: JSONSerialization.ReadingOptions = .allowFragments) th
 Create a JSON object from data.
 
 ```
-let json = JSON(data: data)
+let json = try JSON(data: data)
 ```
 
 ### Traversal
